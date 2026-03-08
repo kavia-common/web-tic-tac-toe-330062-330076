@@ -1,104 +1,234 @@
-/* CSS Variables for Theme Management */
+/* Theme variables (light theme per requirements) */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --primary: #3b82f6;
+  --success: #06b6d4;
+  --background: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+
+  --muted: #64748b;
+  --border: rgba(17, 24, 39, 0.10);
+
+  --shadow: 0 12px 28px rgba(17, 24, 39, 0.10);
+  --shadow-sm: 0 6px 16px rgba(17, 24, 39, 0.08);
+
+  --radius: 16px;
+  --radius-sm: 12px;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* {
+  box-sizing: border-box;
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: var(--background);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
+.page {
   min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.header {
   display: flex;
-  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 6px 0 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.badgeRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+  width: 40px;
+  height: 34px;
+  border-radius: 999px;
+  font-weight: 700;
   font-size: 14px;
+  border: 1px solid var(--border);
+  user-select: none;
+}
+
+.badgePrimary {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--primary);
+  border-color: rgba(59, 130, 246, 0.30);
+}
+
+.badgeSuccess {
+  background: rgba(6, 182, 212, 0.12);
+  color: var(--success);
+  border-color: rgba(6, 182, 212, 0.30);
+}
+
+.badgeMuted {
+  background: rgba(100, 116, 139, 0.08);
+  color: var(--muted);
+}
+
+.status {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(249, 250, 251, 0.6);
   font-weight: 600;
+  font-size: 14px;
+}
+
+.boardWrap {
+  margin-top: 16px;
+  display: grid;
+  place-items: center;
+}
+
+.board {
+  width: 100%;
+  max-width: 360px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.square {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.06), rgba(6, 182, 212, 0.04));
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  height: 104px;
+
+  display: grid;
+  place-items: center;
+
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease, filter 120ms ease;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.square:hover {
+  transform: translateY(-1px);
+  border-color: rgba(59, 130, 246, 0.35);
+  filter: brightness(1.02);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.square:active {
+  transform: translateY(0px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.square:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+.square:disabled {
+  cursor: not-allowed;
+  opacity: 0.95;
+}
+
+.squareWinning {
+  border-color: rgba(6, 182, 212, 0.70);
+  box-shadow: 0 10px 22px rgba(6, 182, 212, 0.15);
+}
+
+.mark {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1;
+  user-select: none;
+}
+
+.markX {
+  color: var(--primary);
+}
+
+.markO {
+  color: var(--success);
+}
+
+.actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+}
+
+.btn:active {
+  transform: translateY(0px);
+}
+
+.btnPrimary {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.25);
+}
+
+/* Responsive tweaks */
+@media (max-width: 420px) {
+  .card {
+    padding: 18px;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+  .square {
+    height: 92px;
+  }
+
+  .mark {
+    font-size: 42px;
   }
 }
